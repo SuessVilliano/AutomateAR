@@ -1,0 +1,319 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #ffffff; /* Default light background */
+    color: #333;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    transition: width 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 10px;
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: 0; /* Collapsed width */
+    padding: 0; /* Remove padding */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 0;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+    opacity: 1; /* Make text fully visible */
+}
+
+.sidebar ul li:hover {
+    background-color: #444;
+}
+
+.sidebar.collapsed ul li {
+    display: none; /* Hide text when collapsed */
+}
+
+.sidebar .toggle-btn {
+    text-align: right;
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+.sidebar .toggle-btn:hover {
+    color: #00ffff;
+}
+
+.sidebar .toggle-btn.collapsed {
+    padding: 10px 20px; /* Adjust padding for the hamburger icon */
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+/* Header */
+.header {
+    background-color: #333; /* Match sidebar color */
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    transition: background-color 0.3s;
+}
+
+/* Toggle between 2D and 3D view */
+.header .view-toggle {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+/* Workflow Area */
+.workflow-area {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+    background-color: #ffffff; /* Updated light theme background */
+    transition: background-color 0.3s;
+}
+
+/* Grid background for 2D mode */
+.workflow-area.grid {
+    background-image: linear-gradient(#e0e0e0 1px, transparent 1px), linear-gradient(to right, #e0e0e0 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Placeholder for 3D canvas */
+#threeDCanvas {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* Updated light theme background */
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-theme .sidebar {
+    background-color: #1f1f1f;
+}
+
+body.dark-theme .sidebar ul li:hover {
+    background-color: #333;
+}
+
+body.dark-theme .main-content {
+    background-color: #1e1e1e;
+}
+
+body.dark-theme .header {
+    background-color: #1b1b1b;
+}
+
+body.dark-theme #threeDCanvas {
+    background-color: #121212;
+}
+
+/* Chat Bubble */
+.chat-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #ffcb05;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.chat-bubble:hover {
+    background-color: #ffc107;
+}
+
+.chat-bubble i {
+    font-size: 1.5em;
+    color: #fff;
+}
+
+/* Chat Box */
+.chat-box {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.chat-box .header {
+    background-color: #222;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+}
+
+.chat-box .content {
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.chat-box .footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-box .footer input {
+    flex-grow: 1;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chat-box .footer button {
+    background-color: #ffcb05;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-box .footer button:hover {
+    background-color: #ffc107;
+}
+
+/* Block Resizing Slider */
+.slider-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.slider-container input[type="range"] {
+    margin: 0 10px;
+}
+
+.slider-container .zoom-btn {
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.slider-container .zoom-btn:hover {
+    background-color: #333;
+}
+
+/* Builder Tools */
+.builder-tools {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.builder-tools button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.builder-tools button.save-btn {
+    background-color: #28a745; /* Different color for the save button */
+}
+
+.builder-tools button:hover {
+    background-color: #0056b3;
+}
+
+.builder-tools button.save-btn:hover {
+    background-color: #218838;
+}
+
+/* Settings page styling */
+.settings-page {
+    padding: 20px;
+}
+
+.settings-page h2 {
+    margin-top: 0;
+}
+
+.theme-option {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.theme-option label {
+    margin-right: 10px;
+}
+
+.theme-option input[type="color"] {
+    width: 40px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
